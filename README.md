@@ -4,8 +4,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 Download npm version 16.20.0
 https://nodejs.org/en/blog/release/v16.20.0
 
