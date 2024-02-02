@@ -5,7 +5,7 @@ import {Factor} from "./Factor";
 export interface Death {
     description: string;
     id: number;
-    death_type: DeathType;
+    death_type_id: number;
     genes: Gene[];
     factors: Factor[];
 }

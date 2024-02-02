@@ -6,14 +6,20 @@ import {WarningOutlined} from "@mui/icons-material";
 
 type Props = {
     button: ReactNode;
+    removeDeath: () => void;
 }
-export const DeleteDeathModal = ({ button }: Props) => {
+export const DeleteDeathModal = ({ button, removeDeath }: Props) => {
     const modalState = useModalState();
+
+    const handleRemove = () => {
+        removeDeath();
+        modalState.toggleModal();
+    }
 
     const body: ReactNode = <>You are about to delete death from the database, this action cannot be undone, are you sure?</>
 
     const actions: ReactNode = <Stack direction="row" spacing={1} style={{ width: '100%' }}>
-        <Button fullWidth color="danger">Yes, delete</Button>
+        <Button fullWidth color="danger" onClick={handleRemove}>Yes, delete</Button>
         <Button fullWidth onClick={modalState.toggleModal}>Cancel</Button>
     </Stack>
 

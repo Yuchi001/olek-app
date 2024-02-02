@@ -12,21 +12,21 @@ import "../../shared/styles/hideScroll.css";
 export const EditDeathData = (baseProps: EditDeathProps & FormikProps<EditDeathValues>) => {
     return <Form onSubmit={(e) => {
         e.preventDefault();
-        baseProps.handleSubmit();
+        baseProps.handleSubmit(baseProps.values);
     }}>
         <Stack spacing={1} style={{ marginBottom: '35px' }}>
-            <FormControlStyled isError={!!(baseProps.errors.death_type && baseProps.touched.death_type)}
-                               isTouched={baseProps.touched.death_type}>
+            <FormControlStyled isError={!!(baseProps.errors.death_type_id && baseProps.touched.death_type_id)}
+                               isTouched={baseProps.touched.death_type_id}>
                 <FormLabel required>Death type</FormLabel>
                 <BetterSelect options={baseProps.death_types_options}
-                              value={baseProps.values.death_type || null}
+                              value={baseProps.values.death_type_id || null}
                               disabled
                               placeHolder={"Select death type..."}
                               onChange={(value) => {
-                                  baseProps.setFieldValue('death_type', +value);
+                                  baseProps.setFieldValue('death_type_id', +value);
                               }} />
-                <ErrorHelperText isError={!!(baseProps.errors.death_type && baseProps.touched.death_type)}
-                                 errorText={baseProps.errors.death_type} />
+                <ErrorHelperText isError={!!(baseProps.errors.death_type_id && baseProps.touched.death_type_id)}
+                                 errorText={baseProps.errors.death_type_id} />
             </FormControlStyled>
             <FormControlStyled isError={!!(baseProps.errors.description && baseProps.touched.description)}
                                isTouched={baseProps.touched.description}>
@@ -43,7 +43,7 @@ export const EditDeathData = (baseProps: EditDeathProps & FormikProps<EditDeathV
             <GeneSelector baseProps={baseProps} />
             <FactorSelector baseProps={baseProps} />
             <Button style={{ position: 'fixed', width: '95%', bottom: 10, left: '50%', transform: 'translate(-50%, 0)' }}
-                    type="submit">Submit</Button>
+                    type="submit" onClick={() => console.log(baseProps.errors)}>Submit</Button>
         </Stack>
     </Form>
 }

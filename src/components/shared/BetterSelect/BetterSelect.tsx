@@ -3,6 +3,7 @@ import React, {ReactNode, useEffect} from 'react';
 import {NumericOption, Option} from "../formUtils/formUtils";
 import {Box, Chip, IconButton, Option as SelectOption, Select, selectClasses, Stack, Typography} from '@mui/joy';
 import {isString} from "formik";
+import "../styles/hideScroll.css";
 
 type Props = {
     options: Option[] | NumericOption[];
@@ -120,11 +121,13 @@ export const BetterSelect = ({
                 if (onChangeArr && isArr) onChangeArr(newVal);
             }}
         >
-            {options.map((element, index) => (
-                <SelectOption value={element.value.toString()} key={index}>
-                    {element.label}
-                </SelectOption>
-            ))}
+            <div className="hideScroll" style={{ overflowY: 'scroll' }}>
+                {options.map((element, index) => (
+                    <SelectOption value={element.value.toString()} key={index}>
+                        {element.label}
+                    </SelectOption>
+                ))}
+            </div>
         </Select>
     )
 }

@@ -14,7 +14,7 @@ export const AddDeathTypeData = (baseProps: DeathTypeProps & FormikProps<DeathTy
             <FormControlStyled isError={!!(baseProps.errors.name && baseProps.touched.name)}
                                isTouched={baseProps.touched.name}>
                 <FormLabel required>Name</FormLabel>
-                <Input onChange={(val) => {
+                <Input autoFocus onChange={(val) => {
                     if(val.target.value === null) return;
                     baseProps.setFieldValue('name', val.target.value);
                 }}

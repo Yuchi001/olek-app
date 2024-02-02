@@ -1,6 +1,6 @@
 import {Death} from "../api/models/Death";
 import {useEffect, useState} from "react";
-import {add_death, get_deaths, update_death} from "../api/Routes";
+import {add_death, get_deaths, remove_death, update_death} from "../api/Routes";
 
 export const useDeaths = (death_type_id: number | undefined) => {
     const [deaths, setDeaths] =
@@ -32,10 +32,7 @@ export const useDeaths = (death_type_id: number | undefined) => {
             },
             body: JSON.stringify(death),
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((json) => {
+            .finally(() => {
                 refreshDeaths();
             });
     }
@@ -50,13 +47,14 @@ export const useDeaths = (death_type_id: number | undefined) => {
             },
             body: JSON.stringify(death),
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((json) => {
+            .finally(() => {
                 refreshDeaths();
             });
     }
 
-    return { deaths, refreshDeaths, addDeath, updateDeath };
+    const deleteDeath = (id: number) => {
+        fetch(remove_death(id)).then(refreshDeaths);
+    }
+
+    return { deaths, refreshDeaths, addDeath, updateDeath, deleteDeath };
 }

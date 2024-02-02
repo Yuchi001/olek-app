@@ -40,13 +40,11 @@ export const useDeathTypes = () => {
                 accept: 'application/json',
                 'User-agent': 'learning app',
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
             },
             body: JSON.stringify(deathType),
         })
-            .then((response) => { return response.json() })
-            .then((json) => {
-                refreshDeathTypes();
-            });
+            .then(()=> { refreshDeathTypes() });
     }
 
     const getDeathTypeById = (id: number): DeathType | undefined => {

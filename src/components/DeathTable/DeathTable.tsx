@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Card, Stack, Table} from "@mui/joy";
 import IconButton from "@mui/joy/IconButton";
 import {AddOutlined, DeleteOutlined, EditOutlined} from "@mui/icons-material";
@@ -12,9 +12,13 @@ type Props = {
     pickedDeathType: number;
 }
 export const DeathTable = ({ pickedDeathType }: Props) => {
-    const { deaths } = useDeaths(pickedDeathType);
+    const { deaths, deleteDeath, refreshDeaths } = useDeaths(pickedDeathType);
     const { genes, createGenesRow } = useGenes();
     const { factors, createFactorsRow } = useFactors();
+
+    useEffect(() => {
+        refreshDeaths();
+    }, [deaths, pickedDeathType]);
 
     return (
         <Stack spacing={1}>
@@ -49,9 +53,10 @@ export const DeathTable = ({ pickedDeathType }: Props) => {
                                 <Stack direction="row" alignItems="center" spacing={1} justifyContent="center">
                                     <EditDeathModal mode={DeathEditMode.Edit}
                                                     death={row}
-                                                    death_type={pickedDeathType}
+                                                    death_type_id={pickedDeathType}
                                                     button={<IconButton variant="soft" color="primary" ><EditOutlined/></IconButton>} />
-                                    <DeleteDeathModal button={<IconButton variant="soft" color="danger" ><DeleteOutlined/></IconButton>} />
+                                    <DeleteDeathModal removeDeath={() => deleteDeath(row.id)}
+                                                      button={<IconButton variant="soft" color="danger" ><DeleteOutlined/></IconButton>} />
                                 </Stack>
                             </td>
                         </tr>
@@ -60,7 +65,7 @@ export const DeathTable = ({ pickedDeathType }: Props) => {
                 </Table>
             </Card>
             <EditDeathModal mode={DeathEditMode.Add}
-                            death_type={pickedDeathType}
+                            death_type_id={pickedDeathType}
                             button={<Button fullWidth startDecorator={<AddOutlined />}>
                 Add new row
             </Button>} />

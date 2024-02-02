@@ -17,4 +17,4 @@ export const update_death = () => `${apiRoute}/update_death`;
 
 //remove
 export const remove_death_type = () => `${apiRoute}/remove_death_type`;
-export const remove_death = () => `${apiRoute}/remove_death`;
+export const remove_death = (id: number) => `${apiRoute}/remove_death?id_death${id}`;
